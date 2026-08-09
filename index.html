@@ -52,7 +52,7 @@
             letter-spacing: 0.05em;
             color: #ffffff;
         }
-        /* WRAPPER GAMBAR HERO */
+        /* WRAPPER GAMBAR / VIDEO HERO */
         .image-card {
             position: relative;
             background: rgba(31, 40, 51, 0.4);
@@ -62,14 +62,17 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             margin-bottom: 40px;
         }
-        .image-card img {
+        .image-card img,
+        .image-card video {
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
             opacity: 0.9;
             transition: transform 0.5s;
         }
-        .image-card:hover img {
+        .image-card:hover img,
+        .image-card:hover video {
             transform: scale(1.02);
         }
         .clean-code-badge {
@@ -231,8 +234,10 @@
         </header>
 
         <section class="image-card">
-            <!-- CATATAN: Link image raw GitHub -->
-            <img src="https://raw.githubusercontent.com/Zamstecu/zamnn3d/bd4a0353c61845d3e153ef1a89dc5424f28b0fd2/ojos%20de%20Hinata.jpg" alt="Hero Art">
+            <video autoplay loop muted playsinline poster="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/Live%20Wallpaper%20PC%20Kochou%20Shinobu.jpg">
+                <source src="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/From%20Klickpin.com-%20Creative%20alteration%20hacks%20with%20charm%20and%20practical%20value%20for%20cozy%20moods%20that%20keep%20sewing-pin-id-17381148558525379.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
             <div class="clean-code-badge">&lt;/&gt; Clean code</div>
         </section>
 
@@ -257,18 +262,18 @@
                 <span class="tech-badge">JavaScript</span>
             </div>
 
-             <!-- ACTION BUTTONS -->
-             <div class="cta-buttons">
-                 <a href="#projects" class="btn btn-primary">View Projects</a>
+            <!-- ACTION BUTTONS -->
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
     
-                 <!-- TOMBOL CONTACT ME (WHATSAPP) -->
-                 <a href="https://wa.me/6285184627076" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                 class="btn btn-secondary">
-                 Contact Me
-                 </a>
-             </div>
+                <!-- TOMBOL CONTACT ME (WHATSAPP) -->
+                <a href="https://wa.me/6285184627076" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn btn-secondary">
+                   Contact Me
+                </a>
+            </div>
         </div>
 
         <!-- STATISTIK SECTION (4 BOXES) -->
