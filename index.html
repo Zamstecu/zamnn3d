@@ -17,12 +17,30 @@
             scroll-behavior: smooth;
         }
 
+        /* =====================================
+           THEME VARIABLES
+        ===================================== */
+
+        :root {
+            --theme-main: #9333ea;
+            --theme-light: #c084fc;
+            --theme-bright: #e879f9;
+            --theme-text: #d8b4fe;
+            --theme-dark: #7e22ce;
+            --theme-rgb: 147, 51, 234;
+        }
+
         body {
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             color: white;
 
-            /* BACKGROUND SHINOBU */
+            /* BACKGROUND */
             background:
                 linear-gradient(
                     rgba(8, 4, 15, 0.45),
@@ -34,133 +52,486 @@
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
+
+            transition:
+                background-image 0.5s ease;
         }
 
-        /* BACKGROUND GLOW */
+
+        /* =====================================
+           BACKGROUND GLOW
+        ===================================== */
+
         .ambient-glow {
             position: fixed;
+
             width: 500px;
             height: 500px;
+
             top: -150px;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(147, 51, 234, 0.15);
-            filter: blur(120px);
+
+            transform:
+                translateX(-50%);
+
+            background:
+                rgba(
+                    var(--theme-rgb),
+                    0.15
+                );
+
+            filter:
+                blur(120px);
+
             pointer-events: none;
+
             z-index: -1;
+
+            transition:
+                background 0.5s ease;
         }
 
-        /* MAIN CONTAINER */
+
+        /* =====================================
+           THEME BUTTON
+        ===================================== */
+
+        .theme-toggle {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.2);
+
+            background:
+                rgba(0,0,0,0.45);
+
+            backdrop-filter:
+                blur(10px);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            z-index: 1000;
+
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform:
+                scale(1.08)
+                rotate(10deg);
+
+            border-color:
+                var(--theme-light);
+
+            box-shadow:
+                0 0 20px
+                rgba(
+                    var(--theme-rgb),
+                    0.5
+                );
+        }
+
+
+        /* =====================================
+           THEME PANEL
+        ===================================== */
+
+        .theme-panel {
+            position: fixed;
+
+            top: 75px;
+            right: 20px;
+
+            width: 250px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(8, 8, 12, 0.92);
+
+            border:
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.4
+                );
+
+            backdrop-filter:
+                blur(15px);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.6),
+
+                0 0 30px
+                rgba(
+                    var(--theme-rgb),
+                    0.15
+                );
+
+            z-index: 999;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(-10px)
+                scale(0.96);
+
+            transition:
+                0.25s;
+        }
+
+        .theme-panel.active {
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .theme-panel h2 {
+            font-size: 17px;
+
+            margin-bottom: 15px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================
+           THEME BUTTONS
+        ===================================== */
+
+        .theme-selector {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+        }
+
+        .theme-color {
+            width: 100%;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 18px;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s;
+        }
+
+        .theme-color:hover {
+            transform:
+                translateY(-3px);
+        }
+
+        .theme-color.active {
+            outline:
+                2px solid white;
+
+            outline-offset: 2px;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,255,255,0.35);
+        }
+
+
+        /* PURPLE */
+
+        .theme-purple {
+            background:
+                linear-gradient(
+                    135deg,
+                    #7e22ce,
+                    #c084fc
+                );
+        }
+
+
+        /* RED */
+
+        .theme-red {
+            background:
+                linear-gradient(
+                    135deg,
+                    #991b1b,
+                    #ef4444
+                );
+        }
+
+
+        /* YELLOW */
+
+        .theme-yellow {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ca8a04,
+                    #facc15
+                );
+        }
+
+
+        /* BLUE */
+
+        .theme-blue {
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #60a5fa
+                );
+        }
+
+
+        /* =====================================
+           MAIN CONTAINER
+        ===================================== */
+
         .container {
             width: 100%;
+
             max-width: 1100px;
+
             margin: auto;
-            padding: 40px 20px 60px;
+
+            padding:
+                40px 20px 60px;
         }
 
-        /* HEADER */
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
         header {
             text-align: center;
+
             margin-bottom: 30px;
         }
 
         header h1 {
             font-size: 32px;
+
             font-weight: 900;
+
             color: white;
-            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+
+            text-shadow:
+                0 0 20px
+                rgba(
+                    var(--theme-rgb),
+                    0.5
+                );
+
+            transition:
+                text-shadow 0.5s;
         }
 
-        /* VIDEO CARD */
+
+        /* =====================================
+           VIDEO CARD
+        ===================================== */
+
         .image-card {
             width: 100%;
+
             max-width: 950px;
+
             margin: 0 auto;
 
             border-radius: 22px;
+
             overflow: hidden;
 
-            border: 1px solid rgba(168, 85, 247, 0.4);
+            border:
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.4
+                );
 
-            background: rgba(0, 0, 0, 0.25);
+            background:
+                rgba(0,0,0,0.25);
 
             box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(147, 51, 234, 0.2);
+                0 20px 60px
+                rgba(0,0,0,0.6),
 
-            backdrop-filter: blur(5px);
+                0 0 40px
+                rgba(
+                    var(--theme-rgb),
+                    0.2
+                );
+
+            backdrop-filter:
+                blur(5px);
+
+            transition:
+                border-color 0.5s,
+                box-shadow 0.5s;
         }
 
         .image-card video {
             display: block;
+
             width: 100%;
+
             height: 520px;
+
             object-fit: cover;
         }
 
-        /* CONTENT */
+
+        /* =====================================
+           CONTENT
+        ===================================== */
+
         .content-section {
             width: 100%;
+
             max-width: 850px;
-            margin: 40px auto 0;
+
+            margin:
+                40px auto 0;
+
             text-align: center;
         }
 
-        /* WELCOME BADGE */
+
+        /* =====================================
+           WELCOME BADGE
+        ===================================== */
+
         .welcome-badge {
             display: inline-block;
 
-            padding: 7px 16px;
+            padding:
+                7px 16px;
 
             border-radius: 20px;
 
-            background: rgba(147, 51, 234, 0.15);
-            border: 1px solid rgba(168, 85, 247, 0.4);
+            background:
+                rgba(
+                    var(--theme-rgb),
+                    0.15
+                );
 
-            color: #d8b4fe;
+            border:
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.4
+                );
+
+            color:
+                var(--theme-text);
 
             font-size: 13px;
+
             font-weight: 600;
 
             box-shadow:
-                0 0 20px rgba(147, 51, 234, 0.1);
+                0 0 20px
+                rgba(
+                    var(--theme-rgb),
+                    0.1
+                );
+
+            transition:
+                background 0.5s,
+                border-color 0.5s,
+                color 0.5s;
         }
 
-        /* TITLE */
+
+        /* =====================================
+           TITLE
+        ===================================== */
+
         .main-title {
             margin-top: 18px;
 
             font-size: 44px;
+
             line-height: 1.15;
+
             font-weight: 900;
 
             color: white;
         }
 
         .gradient-text {
-            background: linear-gradient(
-                90deg,
-                #c084fc,
-                #9333ea,
-                #e879f9
-            );
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--theme-light),
+                    var(--theme-main),
+                    var(--theme-bright)
+                );
 
             -webkit-background-clip: text;
+
             -webkit-text-fill-color: transparent;
+
+            transition:
+                background 0.5s;
         }
 
-        /* SUBTITLE */
+
+        /* =====================================
+           SUBTITLE
+        ===================================== */
+
         .subtitle {
             margin-top: 15px;
 
-            color: #d8b4fe;
+            color:
+                var(--theme-text);
+
             font-size: 18px;
+
+            transition:
+                color 0.5s;
         }
 
         .cursor {
-            color: #a855f7;
+            color:
+                var(--theme-main);
 
-            animation: blink 1s infinite;
+            animation:
+                blink 1s infinite;
         }
 
         @keyframes blink {
@@ -169,60 +540,106 @@
             }
         }
 
-        /* DESCRIPTION */
+
+        /* =====================================
+           DESCRIPTION
+        ===================================== */
+
         .description {
             max-width: 650px;
-            margin: 20px auto;
 
-            color: rgba(255, 255, 255, 0.78);
+            margin:
+                20px auto;
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.78
+                );
 
             font-size: 15px;
+
             line-height: 1.7;
         }
 
-        /* TECH STACK */
+
+        /* =====================================
+           TECH STACK
+        ===================================== */
+
         .tech-stack {
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
             flex-wrap: wrap;
+
             gap: 10px;
 
             margin-top: 20px;
         }
 
         .tech-badge {
-            padding: 8px 14px;
+            padding:
+                8px 14px;
 
             border-radius: 8px;
 
-            background: rgba(147, 51, 234, 0.13);
+            background:
+                rgba(
+                    var(--theme-rgb),
+                    0.13
+                );
 
-            border: 1px solid rgba(168, 85, 247, 0.3);
+            border:
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.3
+                );
 
-            color: #d8b4fe;
+            color:
+                var(--theme-text);
 
             font-size: 13px;
+
             font-weight: 600;
 
-            backdrop-filter: blur(5px);
+            backdrop-filter:
+                blur(5px);
 
-            transition: 0.3s;
+            transition:
+                0.3s;
         }
 
         .tech-badge:hover {
-            transform: translateY(-3px);
+            transform:
+                translateY(-3px);
 
-            background: rgba(147, 51, 234, 0.25);
+            background:
+                rgba(
+                    var(--theme-rgb),
+                    0.25
+                );
 
-            border-color: rgba(192, 132, 252, 0.6);
+            border-color:
+                var(--theme-light);
         }
 
-        /* BUTTONS */
+
+        /* =====================================
+           BUTTONS
+        ===================================== */
+
         .cta-buttons {
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
             gap: 12px;
@@ -231,73 +648,118 @@
         }
 
         .btn {
-            padding: 11px 22px;
+            padding:
+                11px 22px;
 
             border-radius: 8px;
 
             font-size: 14px;
+
             font-weight: 600;
 
             text-decoration: none;
 
-            transition: all 0.3s;
+            transition:
+                all 0.3s;
 
             cursor: pointer;
         }
 
         .btn-primary {
-            background: #9333ea;
+            background:
+                var(--theme-main);
 
             color: white;
 
-            border: 1px solid #a855f7;
+            border:
+                1px solid
+                var(--theme-light);
 
             box-shadow:
-                0 4px 14px rgba(147, 51, 234, 0.4);
+                0 4px 14px
+                rgba(
+                    var(--theme-rgb),
+                    0.4
+                );
         }
 
         .btn-primary:hover {
-            background: #7e22ce;
+            background:
+                var(--theme-dark);
 
-            transform: translateY(-3px);
+            transform:
+                translateY(-3px);
 
             box-shadow:
-                0 8px 25px rgba(147, 51, 234, 0.5);
+                0 8px 25px
+                rgba(
+                    var(--theme-rgb),
+                    0.5
+                );
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.05
+                );
 
-            color: #d8b4fe;
+            color:
+                var(--theme-text);
 
-            border: 1px solid rgba(147, 51, 234, 0.4);
+            border:
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.4
+                );
 
-            backdrop-filter: blur(5px);
+            backdrop-filter:
+                blur(5px);
         }
 
         .btn-secondary:hover {
-            background: rgba(147, 51, 234, 0.2);
+            background:
+                rgba(
+                    var(--theme-rgb),
+                    0.2
+                );
 
-            transform: translateY(-3px);
+            transform:
+                translateY(-3px);
         }
 
-        /* STATISTICS */
+
+        /* =====================================
+           STATISTICS
+        ===================================== */
+
         .stats-section {
             width: 100%;
+
             max-width: 850px;
 
-            margin: 50px auto 0;
+            margin:
+                50px auto 0;
 
             padding-top: 30px;
 
             display: grid;
 
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns:
+                repeat(4, 1fr);
 
             gap: 16px;
 
             border-top:
-                1px solid rgba(147, 51, 234, 0.2);
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.2
+                );
         }
 
         .stat-box {
@@ -306,12 +768,22 @@
             border-radius: 12px;
 
             background:
-                rgba(31, 40, 51, 0.4);
+                rgba(
+                    31,
+                    40,
+                    51,
+                    0.4
+                );
 
             border:
-                1px solid rgba(147, 51, 234, 0.25);
+                1px solid
+                rgba(
+                    var(--theme-rgb),
+                    0.25
+                );
 
-            backdrop-filter: blur(8px);
+            backdrop-filter:
+                blur(8px);
 
             text-align: center;
 
@@ -321,14 +793,16 @@
         }
 
         .stat-box:hover {
-            transform: translateY(-4px);
+            transform:
+                translateY(-4px);
 
             border-color:
-                rgba(192, 132, 252, 0.6);
+                var(--theme-light);
         }
 
         .stat-box h3 {
             font-size: 28px;
+
             font-weight: 900;
 
             color: white;
@@ -340,24 +814,42 @@
             font-size: 11px;
 
             color:
-                rgba(192, 132, 252, 0.8);
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.65
+                );
 
             font-family: monospace;
 
             text-transform: uppercase;
 
-            letter-spacing: 0.05em;
+            letter-spacing:
+                0.05em;
         }
 
-        /* MOBILE */
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
         @media (max-width: 700px) {
 
             .container {
-                padding: 25px 15px 50px;
+                padding:
+                    25px 15px 50px;
             }
 
             header h1 {
                 font-size: 26px;
+            }
+
+            .theme-panel {
+                width:
+                    calc(100vw - 40px);
+
+                right: 20px;
             }
 
             .image-card {
@@ -381,7 +873,8 @@
             }
 
             .stats-section {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
             .cta-buttons {
@@ -390,11 +883,16 @@
 
             .btn {
                 width: 220px;
+
                 text-align: center;
             }
         }
 
-        /* SMALL PHONE */
+
+        /* =====================================
+           SMALL PHONE
+        ===================================== */
+
         @media (max-width: 400px) {
 
             .image-card video {
@@ -410,81 +908,194 @@
             }
 
             .stat-box {
-                padding: 14px 8px;
+                padding:
+                    14px 8px;
             }
 
             .stat-box h3 {
                 font-size: 23px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
+
+    <!-- =====================================
+         AMBIENT GLOW
+    ===================================== -->
 
     <div class="ambient-glow"></div>
 
+
+    <!-- =====================================
+         THEME BUTTON
+    ===================================== -->
+
+    <button
+        class="theme-toggle"
+        id="themeToggle"
+        title="Change Theme">
+
+        🎨
+
+    </button>
+
+
+    <!-- =====================================
+         THEME PANEL
+    ===================================== -->
+
+    <div
+        class="theme-panel"
+        id="themePanel">
+
+        <h2>
+            🎨 Choose Theme
+        </h2>
+
+
+        <div class="theme-selector">
+
+            <button
+                class="theme-color theme-purple active"
+                data-theme="purple"
+                title="Purple">
+
+                🟣
+
+            </button>
+
+
+            <button
+                class="theme-color theme-red"
+                data-theme="red"
+                title="Red">
+
+                🔴
+
+            </button>
+
+
+            <button
+                class="theme-color theme-yellow"
+                data-theme="yellow"
+                title="Yellow">
+
+                🟡
+
+            </button>
+
+
+            <button
+                class="theme-color theme-blue"
+                data-theme="blue"
+                title="Blue">
+
+                🔵
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         MAIN CONTAINER
+    ===================================== -->
+
     <main class="container">
 
+
         <!-- HEADER -->
+
         <header>
-            <h1>ZamnnX3d.</h1>
+
+            <h1>
+                ZamnnX3d.
+            </h1>
+
         </header>
 
 
-        <!-- VIDEO -->
+        <!-- =====================================
+             VIDEO
+        ===================================== -->
+
         <section class="image-card">
 
             <video
+                id="mainVideo"
                 autoplay
                 loop
                 muted
-                playsinline
-                poster="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/Live%20Wallpaper%20PC%20Kochou%20Shinobu.jpg">
+                playsinline>
 
-                <source
-                    src="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/From%20Klickpin.com-%20Creative%20alteration%20hacks%20with%20charm%20and%20practical%20value%20for%20cozy%20moods%20that%20keep%20sewing-pin-id-17381148558525379.mp4"
-                    type="video/mp4">
-
-                Browser Anda tidak mendukung tag video.
+                Browser Anda tidak mendukung
+                tag video.
 
             </video>
 
         </section>
 
 
-        <!-- CONTENT -->
+        <!-- =====================================
+             CONTENT
+        ===================================== -->
+
         <div class="content-section">
 
+
+            <!-- WELCOME BADGE -->
+
             <span class="welcome-badge">
+
                 Welcome
+
             </span>
 
+
+            <!-- TITLE -->
 
             <h2 class="main-title">
 
                 Hello Everyone I'm
+
                 <br>
 
                 <span class="gradient-text">
+
                     ZamnnX3d
+
                 </span>
 
             </h2>
 
 
+            <!-- SUBTITLE -->
+
             <p class="subtitle">
 
-                <span style="text-decoration: line-through;">
+                <span
+                    style="text-decoration: line-through;">
+
                     Watashi no Maou-sama
+
                 </span>
 
                 <span class="cursor">
+
                     |
+
                 </span>
 
             </p>
 
+
+            <!-- DESCRIPTION -->
 
             <p class="description">
 
@@ -495,6 +1106,7 @@
 
 
             <!-- TECH STACK -->
+
             <div class="tech-stack">
 
                 <span class="tech-badge">
@@ -517,6 +1129,7 @@
 
 
             <!-- BUTTONS -->
+
             <div class="cta-buttons">
 
                 <a
@@ -543,8 +1156,12 @@
         </div>
 
 
-        <!-- STATISTICS -->
+        <!-- =====================================
+             STATISTICS
+        ===================================== -->
+
         <section class="stats-section">
+
 
             <div class="stat-box">
 
@@ -597,9 +1214,486 @@
 
             </div>
 
+
         </section>
 
     </main>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ===================================== -->
+
+    <script>
+
+        /*
+        =================================================
+        THEME CONFIGURATION
+        =================================================
+
+        GANTI URL PNG DAN MP4 DI SINI.
+
+        Pengunjung TIDAK bisa mengubah file-file ini.
+
+        Kamu cukup upload aset ke GitHub/hosting,
+        lalu masukkan URL-nya di bawah.
+        */
+
+
+        const themes = {
+
+
+            /* =================================
+               PURPLE
+            ================================= */
+
+            purple: {
+
+                name: "Ungu",
+
+                main: "#9333ea",
+
+                light: "#c084fc",
+
+                bright: "#e879f9",
+
+                text: "#d8b4fe",
+
+                dark: "#7e22ce",
+
+                rgb:
+                    "147, 51, 234",
+
+
+                /* PNG UNGU */
+
+                png:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/07fcf25a5d97f1e00bd2cb1b4de0c0888531f2c8/shinobu.png",
+
+
+                /* MP4 UNGU */
+
+                mp4:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/From%20Klickpin.com-%20Creative%20alteration%20hacks%20with%20charm%20and%20practical%20value%20for%20cozy%20moods%20that%20keep%20sewing-pin-id-17381148558525379.mp4"
+
+            },
+
+
+            /* =================================
+               RED
+            ================================= */
+
+            red: {
+
+                name: "Merah",
+
+                main: "#dc2626",
+
+                light: "#f87171",
+
+                bright: "#fb7185",
+
+                text: "#fecaca",
+
+                dark: "#991b1b",
+
+                rgb:
+                    "220, 38, 38",
+
+
+                /*
+                GANTI DENGAN PNG MERAH
+                */
+
+                png:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/main/和風な雲_月の背景イラスト.jpg",
+
+
+                /*
+                GANTI DENGAN MP4 MERAH
+                */
+
+                mp4:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/refs/heads/main/From%20Klickpin.com-%20Stunning%20capsule%20wardrobe%20ideas%20that%20make%20everyday%20moments%20look%20more%20intentional%20memorable%20and%20beautifully%20styled%20for%20anyone%20pl.mp4"
+
+            },
+
+
+            /* =================================
+               YELLOW
+            ================================= */
+
+            yellow: {
+
+                name: "Kuning",
+
+                main: "#eab308",
+
+                light: "#fde047",
+
+                bright: "#facc15",
+
+                text: "#fef08a",
+
+                dark: "#ca8a04",
+
+                rgb:
+                    "234, 179, 8",
+
+
+                /*
+                GANTI DENGAN PNG KUNING
+                */
+
+                png:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/main/download%20(7).jpg",
+
+
+                /*
+                GANTI DENGAN MP4 KUNING
+                */
+
+                mp4:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/refs/heads/main/From%20Klickpin.com-%20Pin%20these%20easy%20ways%20to%20style%20your%20reading%20nook%20everyone%20will%20ask%20you%20about%20with%20smart%20steps%20cute%20details%20and%20cozy%20vibes%20and%20tot.mp4"
+
+            },
+
+
+            /* =================================
+               BLUE
+            ================================= */
+
+            blue: {
+
+                name: "Biru",
+
+                main: "#2563eb",
+
+                light: "#60a5fa",
+
+                bright: "#38bdf8",
+
+                text: "#bfdbfe",
+
+                dark: "#1d4ed8",
+
+                rgb:
+                    "37, 99, 235",
+
+
+                /*
+                GANTI DENGAN PNG BIRU
+                */
+
+                png:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/main/download%20(8).jpg",
+
+
+                /*
+                GANTI DENGAN MP4 BIRU
+                */
+
+                mp4:
+                    "https://raw.githubusercontent.com/Zamstecu/zamnn3d/refs/heads/main/From%20Klickpin.com-%20Cozy%20Pinterest%20marketing%20ideas%20that%20bring%20together%20comfort%20beauty%20and%20useful%20ideas%20you%20will%20actually%20try%20for%20anyone%20who%20wants%20e.mp4"
+
+            }
+
+        };
+
+
+        /* =====================================
+           ELEMENTS
+        ===================================== */
+
+        const root =
+            document.documentElement;
+
+
+        const body =
+            document.body;
+
+
+        const mainVideo =
+            document.getElementById(
+                "mainVideo"
+            );
+
+
+        const themeToggle =
+            document.getElementById(
+                "themeToggle"
+            );
+
+
+        const themePanel =
+            document.getElementById(
+                "themePanel"
+            );
+
+
+        let currentTheme =
+            localStorage.getItem(
+                "zamnnx3d-theme"
+            ) || "purple";
+
+
+        /* =====================================
+           APPLY THEME
+        ===================================== */
+
+        function applyTheme(
+            themeName
+        ) {
+
+            const theme =
+                themes[themeName];
+
+
+            if (!theme) {
+                return;
+            }
+
+
+            currentTheme =
+                themeName;
+
+
+            /* ===============================
+               CSS VARIABLES
+            =============================== */
+
+            root.style.setProperty(
+                "--theme-main",
+                theme.main
+            );
+
+
+            root.style.setProperty(
+                "--theme-light",
+                theme.light
+            );
+
+
+            root.style.setProperty(
+                "--theme-bright",
+                theme.bright
+            );
+
+
+            root.style.setProperty(
+                "--theme-text",
+                theme.text
+            );
+
+
+            root.style.setProperty(
+                "--theme-dark",
+                theme.dark
+            );
+
+
+            root.style.setProperty(
+                "--theme-rgb",
+                theme.rgb
+            );
+
+
+            /* ===============================
+               BACKGROUND PNG
+            =============================== */
+
+            if (
+                theme.png &&
+                !theme.png.startsWith(
+                    "URL_"
+                )
+            ) {
+
+                body.style.backgroundImage =
+
+                    `
+                    linear-gradient(
+                        rgba(8, 4, 15, 0.45),
+                        rgba(8, 4, 15, 0.75)
+                    ),
+                    url("${theme.png}")
+                    `;
+
+            }
+
+
+            /* ===============================
+               VIDEO MP4
+            =============================== */
+
+            if (
+                theme.mp4 &&
+                !theme.mp4.startsWith(
+                    "URL_"
+                )
+            ) {
+
+                /*
+                Stop video lama
+                */
+
+                mainVideo.pause();
+
+
+                /*
+                Ganti source
+                */
+
+                mainVideo.src =
+                    theme.mp4;
+
+
+                /*
+                Reload video
+                */
+
+                mainVideo.load();
+
+
+                /*
+                Putar lagi
+                */
+
+                mainVideo.play()
+                    .catch(
+                        () => {}
+                    );
+
+            }
+
+
+            /* ===============================
+               ACTIVE BUTTON
+            =============================== */
+
+            document
+                .querySelectorAll(
+                    ".theme-color"
+                )
+                .forEach(
+                    button => {
+
+                        button.classList.toggle(
+                            "active",
+                            button.dataset.theme ===
+                            themeName
+                        );
+
+                    }
+                );
+
+
+            /* ===============================
+               SAVE THEME
+            =============================== */
+
+            localStorage.setItem(
+                "zamnnx3d-theme",
+                themeName
+            );
+
+        }
+
+
+        /* =====================================
+           OPEN / CLOSE THEME PANEL
+        ===================================== */
+
+        themeToggle.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+                themePanel.classList.toggle(
+                    "active"
+                );
+
+            }
+        );
+
+
+        /* =====================================
+           THEME SELECTION
+        ===================================== */
+
+        document
+            .querySelectorAll(
+                ".theme-color"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            const selectedTheme =
+                                this.dataset.theme;
+
+
+                            applyTheme(
+                                selectedTheme
+                            );
+
+
+                            /*
+                            Tutup panel setelah
+                            memilih tema
+                            */
+
+                            themePanel.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =====================================
+           CLICK OUTSIDE PANEL
+        ===================================== */
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    !themePanel.contains(
+                        event.target
+                    ) &&
+                    !themeToggle.contains(
+                        event.target
+                    )
+                ) {
+
+                    themePanel.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================
+           LOAD SAVED THEME
+        ===================================== */
+
+        applyTheme(
+            currentTheme
+        );
+
+    </script>
 
 </body>
 </html>
