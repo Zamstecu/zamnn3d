@@ -1,301 +1,602 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>itsmee | Si anak mama</title>
+
+    <title>ZamnnX3d</title>
+
     <style>
-        /* KODE CSS OFFLINE - TIDAK BUTUH INTERNET */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
-            background-color: #0b0c10;
-            color: #c5c6c7;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            /* BACKGROUND SHINOBU */
+            background:
+                linear-gradient(
+                    rgba(8, 4, 15, 0.45),
+                    rgba(8, 4, 15, 0.75)
+                ),
+                url("https://raw.githubusercontent.com/Zamstecu/zamnn3d/07fcf25a5d97f1e00bd2cb1b4de0c0888531f2c8/shinobu.png");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
-        /* EFEK CAHAYA UNGU DI BELAKANG */
+
+        /* BACKGROUND GLOW */
         .ambient-glow {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed;
             width: 500px;
             height: 500px;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(147, 51, 234, 0.15);
-            border-radius: 50%;
             filter: blur(120px);
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
         }
+
+        /* MAIN CONTAINER */
         .container {
-            position: relative;
-            z-index: 10;
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-        header {
-            margin-bottom: 40px;
-        }
-        header h1 {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            color: #ffffff;
-        }
-        /* WRAPPER GAMBAR / VIDEO HERO */
-        .image-card {
-            position: relative;
-            background: rgba(31, 40, 51, 0.4);
-            border: 1px solid rgba(147, 51, 234, 0.25);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            margin-bottom: 40px;
-        }
-        .image-card img,
-        .image-card video {
             width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            opacity: 0.9;
-            transition: transform 0.5s;
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px 60px;
         }
-        .image-card:hover img,
-        .image-card:hover video {
-            transform: scale(1.02);
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        .clean-code-badge {
-            position: absolute;
-            bottom: 16px;
-            right: 16px;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(147, 51, 234, 0.3);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #d8b4fe;
-            font-family: monospace;
-        }
-        /* TEXT CONTENT */
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .welcome-badge {
-            align-self: flex-start;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #c084fc;
-            background: rgba(147, 51, 234, 0.12);
-            padding: 4px 12px;
-            border-radius: 9999px;
-            border: 1px solid rgba(147, 51, 234, 0.25);
-        }
-        .main-title {
-            font-size: 38px;
+
+        header h1 {
+            font-size: 32px;
             font-weight: 900;
-            color: #ffffff;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
+            color: white;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
         }
+
+        /* VIDEO CARD */
+        .image-card {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+
+            border-radius: 22px;
+            overflow: hidden;
+
+            border: 1px solid rgba(168, 85, 247, 0.4);
+
+            background: rgba(0, 0, 0, 0.25);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(147, 51, 234, 0.2);
+
+            backdrop-filter: blur(5px);
+        }
+
+        .image-card video {
+            display: block;
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+        }
+
+        /* CONTENT */
+        .content-section {
+            width: 100%;
+            max-width: 850px;
+            margin: 40px auto 0;
+            text-align: center;
+        }
+
+        /* WELCOME BADGE */
+        .welcome-badge {
+            display: inline-block;
+
+            padding: 7px 16px;
+
+            border-radius: 20px;
+
+            background: rgba(147, 51, 234, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+
+            color: #d8b4fe;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            box-shadow:
+                0 0 20px rgba(147, 51, 234, 0.1);
+        }
+
+        /* TITLE */
+        .main-title {
+            margin-top: 18px;
+
+            font-size: 44px;
+            line-height: 1.15;
+            font-weight: 900;
+
+            color: white;
+        }
+
         .gradient-text {
-            background: linear-gradient(to right, #a78bfa, #c084fc, #818cf8);
+            background: linear-gradient(
+                90deg,
+                #c084fc,
+                #9333ea,
+                #e879f9
+            );
+
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* SUBTITLE */
         .subtitle {
+            margin-top: 15px;
+
+            color: #d8b4fe;
             font-size: 18px;
-            font-weight: 700;
-            color: #c084fc;
-            font-family: monospace;
         }
+
         .cursor {
+            color: #a855f7;
+
             animation: blink 1s infinite;
         }
+
         @keyframes blink {
-            50% { opacity: 0; }
+            50% {
+                opacity: 0;
+            }
         }
+
+        /* DESCRIPTION */
         .description {
-            color: #94a3b8;
+            max-width: 650px;
+            margin: 20px auto;
+
+            color: rgba(255, 255, 255, 0.78);
+
             font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
-        /* TECH STACK BADGES */
+
+        /* TECH STACK */
         .tech-stack {
             display: flex;
-            gap: 8px;
+            justify-content: center;
+            align-items: center;
+
             flex-wrap: wrap;
-            margin-top: 4px;
+            gap: 10px;
+
+            margin-top: 20px;
         }
+
         .tech-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e2e8f0;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            padding: 8px 14px;
+
+            border-radius: 8px;
+
+            background: rgba(147, 51, 234, 0.13);
+
+            border: 1px solid rgba(168, 85, 247, 0.3);
+
+            color: #d8b4fe;
+
+            font-size: 13px;
             font-weight: 600;
+
+            backdrop-filter: blur(5px);
+
+            transition: 0.3s;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-3px);
+
+            background: rgba(147, 51, 234, 0.25);
+
+            border-color: rgba(192, 132, 252, 0.6);
         }
 
         /* BUTTONS */
         .cta-buttons {
             display: flex;
+            justify-content: center;
+            align-items: center;
+
             gap: 12px;
-            margin-top: 8px;
-        }
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .btn-primary {
-            background: #9333ea;
-            color: #ffffff;
-            border: 1px solid #a855f7;
-            box-shadow: 0 4px 14px rgba(147, 51, 234, 0.4);
-        }
-        .btn-primary:hover {
-            background: #7e22ce;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #d8b4fe;
-            border: 1px solid rgba(147, 51, 234, 0.3);
-        }
-        .btn-secondary:hover {
-            background: rgba(147, 51, 234, 0.15);
-            transform: translateY(-2px);
+
+            margin-top: 25px;
         }
 
-        /* STATISTIK SECTION (4 BOXES GRID) */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 16px;
-            border-top: 1px solid rgba(147, 51, 234, 0.15);
-            margin-top: 40px;
-            padding-top: 32px;
+        .btn {
+            padding: 11px 22px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: all 0.3s;
+
+            cursor: pointer;
         }
-        .stat-box {
-            background: rgba(31, 40, 51, 0.3);
-            border: 1px solid rgba(147, 51, 234, 0.2);
-            padding: 16px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s, border-color 0.3s;
+
+        .btn-primary {
+            background: #9333ea;
+
+            color: white;
+
+            border: 1px solid #a855f7;
+
+            box-shadow:
+                0 4px 14px rgba(147, 51, 234, 0.4);
         }
-        .stat-box:hover {
+
+        .btn-primary:hover {
+            background: #7e22ce;
+
             transform: translateY(-3px);
-            border-color: rgba(192, 132, 252, 0.5);
+
+            box-shadow:
+                0 8px 25px rgba(147, 51, 234, 0.5);
         }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+
+            color: #d8b4fe;
+
+            border: 1px solid rgba(147, 51, 234, 0.4);
+
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(147, 51, 234, 0.2);
+
+            transform: translateY(-3px);
+        }
+
+        /* STATISTICS */
+        .stats-section {
+            width: 100%;
+            max-width: 850px;
+
+            margin: 50px auto 0;
+
+            padding-top: 30px;
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 16px;
+
+            border-top:
+                1px solid rgba(147, 51, 234, 0.2);
+        }
+
+        .stat-box {
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(31, 40, 51, 0.4);
+
+            border:
+                1px solid rgba(147, 51, 234, 0.25);
+
+            backdrop-filter: blur(8px);
+
+            text-align: center;
+
+            transition:
+                transform 0.3s,
+                border-color 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(192, 132, 252, 0.6);
+        }
+
         .stat-box h3 {
             font-size: 28px;
             font-weight: 900;
-            color: #ffffff;
+
+            color: white;
         }
+
         .stat-box p {
+            margin-top: 5px;
+
             font-size: 11px;
-            color: rgba(192, 132, 252, 0.8);
+
+            color:
+                rgba(192, 132, 252, 0.8);
+
             font-family: monospace;
+
             text-transform: uppercase;
+
             letter-spacing: 0.05em;
-            margin-top: 4px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            .container {
+                padding: 25px 15px 50px;
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .image-card {
+                border-radius: 16px;
+            }
+
+            .image-card video {
+                height: 350px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 220px;
+                text-align: center;
+            }
+        }
+
+        /* SMALL PHONE */
+        @media (max-width: 400px) {
+
+            .image-card video {
+                height: 300px;
+            }
+
+            .main-title {
+                font-size: 28px;
+            }
+
+            .stats-section {
+                gap: 10px;
+            }
+
+            .stat-box {
+                padding: 14px 8px;
+            }
+
+            .stat-box h3 {
+                font-size: 23px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="ambient-glow"></div>
 
     <main class="container">
-        
+
+        <!-- HEADER -->
         <header>
             <h1>ZamnnX3d.</h1>
         </header>
 
+
+        <!-- VIDEO -->
         <section class="image-card">
-            <video autoplay loop muted playsinline poster="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/Live%20Wallpaper%20PC%20Kochou%20Shinobu.jpg">
-                <source src="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/From%20Klickpin.com-%20Creative%20alteration%20hacks%20with%20charm%20and%20practical%20value%20for%20cozy%20moods%20that%20keep%20sewing-pin-id-17381148558525379.mp4" type="video/mp4">
+
+            <video
+                autoplay
+                loop
+                muted
+                playsinline
+                poster="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/Live%20Wallpaper%20PC%20Kochou%20Shinobu.jpg">
+
+                <source
+                    src="https://raw.githubusercontent.com/Zamstecu/zamnn3d/4e692627c806627ce23ace7b9f3739053ee5b709/From%20Klickpin.com-%20Creative%20alteration%20hacks%20with%20charm%20and%20practical%20value%20for%20cozy%20moods%20that%20keep%20sewing-pin-id-17381148558525379.mp4"
+                    type="video/mp4">
+
                 Browser Anda tidak mendukung tag video.
+
+            </video>
+
         </section>
 
+
+        <!-- CONTENT -->
         <div class="content-section">
-            <span class="welcome-badge">Welcome</span>
+
+            <span class="welcome-badge">
+                Welcome
+            </span>
+
 
             <h2 class="main-title">
-                Hello Everyone I'm <br>
-                <span class="gradient-text">ZamnnX3d</span>
+
+                Hello Everyone I'm
+                <br>
+
+                <span class="gradient-text">
+                    ZamnnX3d
+                </span>
+
             </h2>
 
+
             <p class="subtitle">
-               <span style="text-decoration: line-through;">Watashi no Maou-sama</span><span class="cursor">|</span>
+
+                <span style="text-decoration: line-through;">
+                    Watashi no Maou-sama
+                </span>
+
+                <span class="cursor">
+                    |
+                </span>
+
             </p>
 
 
             <p class="description">
-                I am a web developer focused on building modern, responsive, and efficient websites.
+
+                I am a web developer focused on building
+                modern, responsive, and efficient websites.
+
             </p>
 
-            <!-- TECH STACK BADGES -->
+
+            <!-- TECH STACK -->
             <div class="tech-stack">
-                <span class="tech-badge">HTML</span>
-                <span class="tech-badge">C++</span>
-                <span class="tech-badge">JavaScript</span>
-                <span class="tech-badge">Python</span>
+
+                <span class="tech-badge">
+                    HTML
+                </span>
+
+                <span class="tech-badge">
+                    C++
+                </span>
+
+                <span class="tech-badge">
+                    JavaScript
+                </span>
+
+                <span class="tech-badge">
+                    Python
+                </span>
+
             </div>
 
-            <!-- ACTION BUTTONS -->
+
+            <!-- BUTTONS -->
             <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-    
-                <!-- TOMBOL CONTACT ME (WHATSAPP) -->
-                <a href="https://wa.me/6285184627076" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="btn btn-secondary">
-                   Contact Me
+
+                <a
+                    href="#projects"
+                    class="btn btn-primary">
+
+                    View Projects
+
                 </a>
+
+
+                <a
+                    href="https://wa.me/6285184627076"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary">
+
+                    Contact Me
+
+                </a>
+
             </div>
+
         </div>
 
-        <!-- STATISTIK SECTION (4 BOXES) -->
+
+        <!-- STATISTICS -->
         <section class="stats-section">
+
             <div class="stat-box">
-                <h3>15</h3>
-                <p>years old</p>
+
+                <h3>
+                    15
+                </h3>
+
+                <p>
+                    years old
+                </p>
+
             </div>
+
+
             <div class="stat-box">
-                <h3>X RPL</h3>
-                <p>Class in School</p>
+
+                <h3>
+                    X RPL
+                </h3>
+
+                <p>
+                    Class in School
+                </p>
+
             </div>
+
+
             <div class="stat-box">
-                <h3>100%</h3>
-                <p>Enthusiast</p>
+
+                <h3>
+                    100%
+                </h3>
+
+                <p>
+                    Enthusiast
+                </p>
+
             </div>
+
+
             <div class="stat-box">
-                <h3>8/24</h3>
-                <p>Learning</p>
+
+                <h3>
+                    8/24
+                </h3>
+
+                <p>
+                    Learning
+                </p>
+
             </div>
+
         </section>
 
     </main>
