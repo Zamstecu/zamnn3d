@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZamnnX3d - My Projects</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --main: #06b6d4;
+    --light: #67e8f9;
+    --bright: #38bdf8;
+    --text: #cffafe;
+    --dark: #0891b2;
+    --rgb: 6, 182, 212;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(3, 8, 12, .38),
+            rgba(3, 8, 12, .78)
+        ),
+        url("upscalemedia-transformed.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* NAVBAR */
+
+nav {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 900;
+
+    text-shadow:
+        0 0 15px rgba(var(--rgb), .7);
+}
+
+.back {
+    padding: 9px 18px;
+
+    border: 1px solid rgba(var(--rgb), .45);
+    border-radius: 8px;
+
+    color: var(--text);
+    text-decoration: none;
+
+    background: rgba(0, 0, 0, .35);
+    backdrop-filter: blur(10px);
+
+    transition: .3s;
+}
+
+.back:hover {
+    background: rgba(var(--rgb), .25);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* HEADER */
+
+header {
+    max-width: 850px;
+    margin: 55px auto 35px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 7px 16px;
+    border-radius: 20px;
+
+    background: rgba(var(--rgb), .13);
+    border: 1px solid rgba(var(--rgb), .4);
+
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+
+    backdrop-filter: blur(8px);
+}
+
+h1 {
+    margin-top: 18px;
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.gradient {
+    background:
+        linear-gradient(
+            90deg,
+            var(--light),
+            var(--main),
+            var(--bright)
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, .75);
+    line-height: 1.6;
+}
+
+/* SEARCH */
+
+.tools {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+
+.search {
+    width: 100%;
+    padding: 14px 18px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(var(--rgb), .35);
+    outline: none;
+
+    background: rgba(0, 0, 0, .45);
+    color: white;
+
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+}
+
+.search::placeholder {
+    color: rgba(255, 255, 255, .45);
+}
+
+.search:focus {
+    border-color: var(--light);
+}
+
+/* FILTER */
+
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 15px;
+}
+
+.filter {
+    padding: 8px 15px;
+
+    border-radius: 8px;
+    border: 1px solid rgba(var(--rgb), .3);
+
+    background: rgba(0, 0, 0, .35);
+    color: var(--text);
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.filter:hover,
+.filter.active {
+    background: var(--main);
+    color: white;
+    border-color: var(--light);
+}
+
+/* PROJECT GRID */
+
+.projects {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 20px 70px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* PROJECT CARD */
+
+.project {
+    overflow: hidden;
+
+    border-radius: 16px;
+    border: 1px solid rgba(var(--rgb), .25);
+
+    background: rgba(3, 10, 15, .68);
+    backdrop-filter: blur(10px);
+
+    transition: .35s;
+}
+
+.project:hover {
+    transform: translateY(-7px);
+
+    border-color: var(--light);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .5),
+        0 0 30px rgba(var(--rgb), .18);
+}
+
+.project-image {
+    height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(var(--rgb), .2),
+            rgba(0, 0, 0, .55)
+        );
+
+    font-size: 55px;
+}
+
+.project-content {
+    padding: 18px;
+}
+
+.project h2 {
+    font-size: 19px;
+}
+
+.project p {
+    margin-top: 9px;
+
+    color: rgba(255, 255, 255, .65);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* TAGS */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.tag {
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+    color: var(--text);
+
+    background: rgba(var(--rgb), .1);
+    border: 1px solid rgba(var(--rgb), .25);
+}
+
+/* BUTTON */
+
+.project-buttons {
+    margin-top: 17px;
+}
+
+.btn {
+    display: block;
+
+    padding: 9px;
+
+    border-radius: 7px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: .3s;
+}
+
+.demo {
+    background: var(--main);
+    color: white;
+    border: 1px solid var(--light);
+}
+
+.demo:hover {
+    background: var(--dark);
+}
+
+/* EMPTY */
+
+.empty {
+    grid-column: 1 / -1;
+
+    display: none;
+
+    text-align: center;
+    padding: 50px;
+
+    color: rgba(255, 255, 255, .5);
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 0 20px 30px;
+
+    color: rgba(255, 255, 255, .4);
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .projects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 550px) {
+    nav {
+        padding: 20px 15px;
+    }
+
+    header {
+        margin-top: 40px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .projects {
+        grid-template-columns: 1fr;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .tools {
+        padding: 0 15px;
+    }
+
+    .project-image {
+        height: 190px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">ZamnnX3d.</div>
+
+    <a
+        href="https://zamstecu.github.io/zamnn3d/"
+        class="back">
+        ← Home
+    </a>
+</nav>
+
+<header>
+    <span class="badge">My Projects</span>
+
+    <h1>
+        My <span class="gradient">Projects</span>
+    </h1>
+
+    <p class="subtitle">
+        Some projects that I have created while learning
+        programming and web development.
+    </p>
+</header>
+
+<div class="tools">
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="Search projects..."
+    >
+
+    <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="web">Web</button>
+        <button class="filter" data-filter="javascript">JavaScript</button>
+        <button class="filter" data-filter="python">Python</button>
+        <button class="filter" data-filter="other">Other</button>
+    </div>
+
+</div>
+
+<section class="projects" id="projects">
+
+    <!-- PROJECT 1 -->
+
+    <article
+        class="project"
+        data-category="web"
+        data-name="ZamnnX3d Portfolio">
+
+        <div class="project-image">🌐</div>
+
+        <div class="project-content">
+
+            <h2>ZamnnX3d Portfolio</h2>
+
+            <p>
+                Personal portfolio website with
+                custom themes, background and video.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+            <div class="project-buttons">
+                <a
+                    href="https://zamstecu.github.io/zamnn3d/"
+                    class="btn demo">
+                    View Project
+                </a>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- PROJECT 2 -->
+
+    <article
+        class="project"
+        data-category="javascript"
+        data-name="Chesst">
+
+        <div class="project-image">♟️</div>
+
+        <div class="project-content">
+
+            <h2>Chesst</h2>
+
+            <p>
+                Simple chess game made with
+                HTML, CSS and JavaScript.
+            </p>
+
+            <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+            <div class="project-buttons">
+                <a
+                    href="https://zamstecu.github.io/chesst-simple/"
+                    class="btn demo">
+                    View Project
+                </a>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- COMING SOON -->
+
+    <article
+        class="project"
+        data-category="other"
+        data-name="Coming Soon">
+
+        <div class="project-image">🚀</div>
+
+        <div class="project-content">
+
+            <h2>Coming Soon</h2>
+
+            <p>
+                Another project is currently
+                being developed.
+            </p>
+
+            <div class="tags">
+                <span class="tag">Future</span>
+            </div>
+
+        </div>
+    </article>
+
+    <div class="empty" id="empty">
+        No project found.
+    </div>
+
+</section>
+
+<footer>
+    © 2026 ZamnnX3d. All rights reserved.
+</footer>
+
+<script>
+
+const search = document.getElementById("search");
+const projects = document.querySelectorAll(".project");
+const filters = document.querySelectorAll(".filter");
+const empty = document.getElementById("empty");
+
+let currentFilter = "all";
+
+function filterProjects() {
+
+    const query = search.value.toLowerCase().trim();
+    let visible = 0;
+
+    projects.forEach(project => {
+
+        const category = project.dataset.category;
+        const name = project.dataset.name.toLowerCase();
+
+        const categoryMatch =
+            currentFilter === "all" ||
+            category === currentFilter;
+
+        const searchMatch =
+            name.includes(query);
+
+        const show =
+            categoryMatch && searchMatch;
+
+        project.style.display =
+            show ? "" : "none";
+
+        if (show) visible++;
+    });
+
+    empty.style.display =
+        visible === 0 ? "block" : "none";
+}
+
+search.addEventListener("input", filterProjects);
+
+filters.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filters.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        currentFilter =
+            button.dataset.filter;
+
+        filterProjects();
+    });
+
+});
+
+</script>
+
+</body>
+</html>
