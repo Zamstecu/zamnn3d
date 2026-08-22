@@ -44,102 +44,224 @@ const themes = {
     }
 };
 
-const root = document.documentElement;
-const body = document.body;
-const video = document.getElementById("mainVideo");
-const overlay = document.getElementById("themeOverlay");
 
-const themeNames = ["red","purple","yellow","blue"];
+/* =========================
+   ELEMENTS
+========================= */
 
-const themeLabels = {
-    red:"CRIMSON",
+const root=document.documentElement;
+const body=document.body;
+const video=document.getElementById("mainVideo");
+const overlay=document.getElementById("themeOverlay");
+const particles=document.getElementById("themeParticles");
+
+const themeCurrent=document.getElementById("themeCurrent");
+const themePreview=document.getElementById("themePreview");
+const themeDots=document.getElementById("themeDots");
+
+const swipeProgress=document.getElementById("swipeProgress");
+const swipeHint=document.getElementById("swipeHint");
+
+
+/* =========================
+   THEMES
+========================= */
+
+const themeNames=["red","purple","yellow","blue"];
+
+const themeLabels={
     purple:"PURPLE",
+    red:"CRIMSON",
     yellow:"GOLDEN",
     blue:"OCEAN"
 };
 
-let currentTheme =
-    localStorage.getItem("zamnnx3d-theme") || "red";
+let currentTheme=
+    localStorage.getItem("zamnnx3d-theme")||"red";
 
-let swipeStartX = 0;
-let swipeStartY = 0;
-let swipePointerActive = false;
-let swipeMoved = false;
+let changing=false;
 
 
-/* PARTICLES */
+/* =========================
+   PARTICLES
+========================= */
 
 function createParticles(){
 
-    const box =
-        document.getElementById("themeParticles");
+    particles.innerHTML="";
 
-    box.innerHTML = "";
+    const amount=window.innerWidth<=700?12:18;
 
-    for(let i = 0; i < 22; i++){
+    for(let i=0;i<amount;i++){
 
-        const p = document.createElement("span");
+        const p=document.createElement("span");
 
-        p.className = "theme-particle";
+        p.className="theme-particle";
 
-        p.style.left =
-            Math.random() * 100 + "%";
+        p.style.left=Math.random()*100+"%";
+        p.style.bottom=(-10-Math.random()*20)+"px";
 
-        p.style.bottom =
-            (-10 - Math.random() * 20) + "px";
+        p.style.animationDuration=
+            (8+Math.random()*7)+"s";
 
-        p.style.animationDuration =
-            (7 + Math.random() * 8) + "s";
-
-        p.style.animationDelay =
-            (-Math.random() * 10) + "s";
+        p.style.animationDelay=
+            (-Math.random()*10)+"s";
 
         p.style.setProperty(
             "--drift",
-            (Math.random() * 140 - 70) + "px"
+            (Math.random()*140-70)+"px"
         );
 
-        p.style.width =
-        p.style.height =
-            (2 + Math.random() * 4) + "px";
+        const size=2+Math.random()*3;
 
-        box.appendChild(p);
+        p.style.width=size+"px";
+        p.style.height=size+"px";
+
+        particles.appendChild(p);
     }
 }
 
 
-/* APPLY THEME */
+/* =========================
+   IMAGE PRELOAD
+========================= */
 
-function applyTheme(name, animate = true){
+function preloadImage(name){
 
-    const theme = themes[name];
+    if(!themes[name])return;
 
-    if(!theme) return;
+    const img=new Image();
+
+    img.src=themes[name].png;
+}
+
+
+/* =========================
+   PRELOAD NEARBY IMAGES
+========================= */
+
+function preloadNearbyImages(){
+
+    const i=themeNames.indexOf(currentTheme);
+
+    const next=
+        themeNames[(i+1)%themeNames.length];
+
+    const prev=
+        themeNames[
+            (i-1+themeNames.length)%
+            themeNames.length
+        ];
+
+    preloadImage(next);
+    preloadImage(prev);
+}
+
+
+/* =========================
+   THEME UI
+========================= */
+
+function updateThemeUI(name){
+
+    currentTheme=name;
+
+    themeCurrent.textContent=
+        themeLabels[name];
+
+    themePreview.src=
+        themes[name].png;
+
+    themeDots.innerHTML=
+        themeNames.map(theme=>`
+            <span
+                class="theme-dot ${
+                    theme===name?"active":""
+                }">
+            </span>
+        `).join("");
+
+    const count=
+        themeNames.indexOf(name)+1;
+
+    const worldCount=
+        document.getElementById("worldCount");
+
+    const worldLine=
+        document.getElementById("worldLine");
+
+    if(worldCount){
+        worldCount.textContent=
+            `WORLD ${String(count).padStart(2,"0")} / 04`;
+    }
+
+    if(worldLine){
+        worldLine.style.height=
+            `${count*25}%`;
+    }
+}
+
+
+/* =========================
+   APPLY THEME
+========================= */
+
+function applyTheme(name,animate=true){
+
+    if(!themes[name]||changing)return;
+
+    const theme=themes[name];
+
+    changing=true;
 
     if(animate){
 
         body.classList.remove("theme-enter");
+
         body.classList.add("theme-changing");
 
         overlay.classList.add("active");
     }
 
-    setTimeout(() => {
 
-        Object.entries(theme).forEach(
-            ([key,value]) => {
+    setTimeout(()=>{
 
-                if(["png","mp4"].includes(key))
-                    return;
+        /* COLORS */
 
-                root.style.setProperty(
-                    `--theme-${key}`,
-                    value
-                );
-            }
+        root.style.setProperty(
+            "--theme-main",
+            theme.main
         );
 
-        body.style.backgroundImage = `
+        root.style.setProperty(
+            "--theme-light",
+            theme.light
+        );
+
+        root.style.setProperty(
+            "--theme-bright",
+            theme.bright
+        );
+
+        root.style.setProperty(
+            "--theme-text",
+            theme.text
+        );
+
+        root.style.setProperty(
+            "--theme-dark",
+            theme.dark
+        );
+
+        root.style.setProperty(
+            "--theme-rgb",
+            theme.rgb
+        );
+
+
+        /* BACKGROUND */
+
+        body.style.backgroundImage=`
             linear-gradient(
                 rgba(8,4,15,.45),
                 rgba(8,4,15,.75)
@@ -147,31 +269,50 @@ function applyTheme(name, animate = true){
             url("${theme.png}")
         `;
 
-        video.classList.add(
-            "theme-video-out"
-        );
+
+        /* VIDEO */
+
+        video.classList.add("theme-video-out");
 
         video.pause();
 
-        video.src = theme.mp4;
+        video.removeAttribute("src");
 
         video.load();
 
-        video.onloadeddata = () => {
+        video.src=theme.mp4;
 
-            video.play().catch(() => {});
+        video.load();
+
+
+        video.onloadeddata=()=>{
+
+            video.play().catch(()=>{});
 
             video.classList.remove(
                 "theme-video-out"
             );
+
+            video.onloadeddata=null;
         };
+
+
+        /* SAVE */
 
         localStorage.setItem(
             "zamnnx3d-theme",
             name
         );
 
+
+        currentTheme=name;
+
+        updateThemeUI(name);
+
         createParticles();
+
+        preloadNearbyImages();
+
 
         if(animate){
 
@@ -183,93 +324,46 @@ function applyTheme(name, animate = true){
                 "theme-enter"
             );
 
-            setTimeout(() => {
-
+            setTimeout(()=>{
                 overlay.classList.remove(
                     "active"
                 );
-
             },180);
 
-            setTimeout(() => {
-
+            setTimeout(()=>{
                 body.classList.remove(
                     "theme-enter"
                 );
-
             },800);
         }
 
-    }, animate ? 220 : 0);
+
+        setTimeout(()=>{
+            changing=false;
+        },500);
+
+    },animate?180:0);
 }
 
 
-/* THEME UI */
-
-function updateThemeUI(name){
-
-    currentTheme = name;
-
-    document.getElementById(
-        "themeCurrent"
-    ).textContent =
-        themeLabels[name];
-
-    document.getElementById(
-        "themePreview"
-    ).src =
-        themes[name].png;
-
-    const dots =
-        document.getElementById(
-            "themeDots"
-        );
-
-    dots.innerHTML =
-        themeNames.map(theme => `
-            <span class="theme-dot ${
-                theme === name
-                    ? "active"
-                    : ""
-            }"></span>
-        `).join("");
-
-    const index =
-        themeNames.indexOf(name);
-
-    document.getElementById(
-        "worldCount"
-    ).textContent =
-        `WORLD ${
-            String(index + 1).padStart(2,"0")
-        } / 04`;
-
-    document.getElementById(
-        "worldLine"
-    ).style.height =
-        `${((index + 1) /
-            themeNames.length) * 100}%`;
-}
-
-
-/* CHANGE THEME */
+/* =========================
+   CHANGE THEME
+========================= */
 
 function changeTheme(direction){
 
-    let index =
-        themeNames.indexOf(
-            currentTheme
-        );
+    if(changing)return;
 
-    index =
-        (
-            index +
-            direction +
-            themeNames.length
-        ) % themeNames.length;
+    let i=
+        themeNames.indexOf(currentTheme);
 
-    const next =
-        themeNames[index];
+    i=
+        (i+direction+themeNames.length)%
+        themeNames.length;
+
+    const next=
+        themeNames[i];
+
 
     body.classList.remove(
         "swiping-left",
@@ -279,73 +373,84 @@ function changeTheme(direction){
     void body.offsetWidth;
 
     body.classList.add(
-        direction > 0
-            ? "swiping-left"
-            : "swiping-right"
+        direction>0
+            ?"swiping-left"
+            :"swiping-right"
     );
+
 
     applyTheme(next,true);
 
-    updateThemeUI(next);
 
-    setTimeout(() => {
-
+    setTimeout(()=>{
         body.classList.remove(
             "swiping-left",
             "swiping-right"
         );
-
     },550);
 }
 
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 
 document
     .getElementById("themePrev")
     .addEventListener(
         "click",
-        () => changeTheme(-1)
+        ()=>changeTheme(-1)
     );
 
 document
     .getElementById("themeNext")
     .addEventListener(
         "click",
-        () => changeTheme(1)
+        ()=>changeTheme(1)
     );
 
 
-/* KEYBOARD */
+/* =========================
+   KEYBOARD
+========================= */
 
 document.addEventListener(
     "keydown",
-    e => {
+    e=>{
 
-        if(e.key === "ArrowLeft")
+        if(e.key==="ArrowLeft"){
             changeTheme(-1);
+        }
 
-        if(e.key === "ArrowRight")
+        if(e.key==="ArrowRight"){
             changeTheme(1);
+        }
     }
 );
 
 
-/* HIDE HINT */
+/* =========================
+   HIDE HINT
+========================= */
 
 function hideHint(){
 
-    const hint =
-        document.getElementById(
-            "swipeHint"
-        );
-
-    if(hint)
-        hint.remove();
+    if(swipeHint){
+        swipeHint.remove();
+    }
 }
 
 
-/* SWIPE CHECK */
+/* =========================
+   SWIPE
+========================= */
+
+let swipeStartX=0;
+let swipeStartY=0;
+
+let swipeActive=false;
+let swipeMoved=false;
+
 
 function canSwipe(target){
 
@@ -355,132 +460,113 @@ function canSwipe(target){
 }
 
 
-/* BEGIN SWIPE */
-
 function beginSwipe(x,y,target){
 
-    if(!canSwipe(target))
-        return;
+    if(!canSwipe(target))return;
 
-    swipeStartX = x;
-    swipeStartY = y;
+    swipeStartX=x;
+    swipeStartY=y;
 
-    swipePointerActive = true;
-    swipeMoved = false;
+    swipeActive=true;
+    swipeMoved=false;
 }
 
 
-/* MOVE SWIPE */
-
 function moveSwipe(x,y,event){
 
-    if(!swipePointerActive)
-        return;
+    if(!swipeActive)return;
 
-    const dx =
-        x - swipeStartX;
+    const dx=x-swipeStartX;
+    const dy=y-swipeStartY;
 
-    const dy =
-        y - swipeStartY;
 
     if(!swipeMoved){
 
-        if(Math.abs(dx) < 12)
-            return;
+        if(Math.abs(dx)<12)return;
 
         if(
-            Math.abs(dy) >
-            Math.abs(dx) * 1.15
+            Math.abs(dy)>
+            Math.abs(dx)*1.15
         ){
 
-            swipePointerActive = false;
+            swipeActive=false;
+
             return;
         }
 
-        swipeMoved = true;
+        swipeMoved=true;
 
         body.classList.add(
             "is-dragging"
         );
 
-        body.style.userSelect =
-            "none";
+        body.style.userSelect="none";
     }
 
-    setSwipeProgress(dx);
 
-    if(
-        event &&
-        event.cancelable
-    ){
+    if(swipeMoved){
 
-        event.preventDefault();
+        const progress=
+            Math.min(
+                Math.abs(dx)/150*100,
+                100
+            );
+
+        swipeProgress.style.width=
+            progress+"%";
+
+        if(
+            event &&
+            event.cancelable
+        ){
+            event.preventDefault();
+        }
     }
 }
 
 
-/* END SWIPE */
-
 function endSwipe(x){
 
-    if(!swipePointerActive)
-        return;
+    if(!swipeActive)return;
 
-    const dx =
-        x - swipeStartX;
+    const dx=x-swipeStartX;
 
-    swipePointerActive = false;
+    swipeActive=false;
 
     body.classList.remove(
         "is-dragging"
     );
 
-    body.style.userSelect = "";
+    body.style.userSelect="";
 
-    setSwipeProgress(0);
+    swipeProgress.style.width="0";
+
 
     if(
         swipeMoved &&
-        Math.abs(dx) > 55
+        Math.abs(dx)>55
     ){
 
         changeTheme(
-            dx < 0
-                ? 1
-                : -1
+            dx<0?1:-1
         );
     }
 
-    swipeMoved = false;
+    swipeMoved=false;
 }
 
 
-/* SWIPE PROGRESS */
-
-function setSwipeProgress(dx){
-
-    const bar =
-        document.getElementById(
-            "swipeProgress"
-        );
-
-    bar.style.width =
-        Math.min(
-            Math.abs(dx) / 150 * 100,
-            100
-        ) + "%";
-}
-
-
-/* TOUCH START */
+/* =========================
+   TOUCH
+========================= */
 
 document.addEventListener(
     "touchstart",
-    e => {
+    e=>{
 
         hideHint();
 
-        const t =
+        const t=
             e.changedTouches[0];
 
         beginSwipe(
@@ -488,19 +574,16 @@ document.addEventListener(
             t.clientY,
             e.target
         );
-
     },
     {passive:true}
 );
 
 
-/* TOUCH MOVE */
-
 document.addEventListener(
     "touchmove",
-    e => {
+    e=>{
 
-        const t =
+        const t=
             e.changedTouches[0];
 
         moveSwipe(
@@ -508,53 +591,49 @@ document.addEventListener(
             t.clientY,
             e
         );
-
     },
     {passive:false}
 );
 
 
-/* TOUCH END */
-
 document.addEventListener(
     "touchend",
-    e => {
+    e=>{
 
         endSwipe(
             e.changedTouches[0].clientX
         );
-
     },
     {passive:true}
 );
 
 
-/* TOUCH CANCEL */
-
 document.addEventListener(
     "touchcancel",
-    () => {
+    ()=>{
 
-        swipePointerActive = false;
-        swipeMoved = false;
+        swipeActive=false;
+        swipeMoved=false;
 
         body.classList.remove(
             "is-dragging"
         );
 
-        body.style.userSelect = "";
+        body.style.userSelect="";
 
-        setSwipeProgress(0);
+        swipeProgress.style.width="0";
     },
     {passive:true}
 );
 
 
-/* DESKTOP MOUSE */
+/* =========================
+   DESKTOP DRAG
+========================= */
 
 document.addEventListener(
     "mousedown",
-    e => {
+    e=>{
 
         hideHint();
 
@@ -566,9 +645,10 @@ document.addEventListener(
     }
 );
 
+
 document.addEventListener(
     "mousemove",
-    e => {
+    e=>{
 
         moveSwipe(
             e.clientX,
@@ -578,9 +658,10 @@ document.addEventListener(
     }
 );
 
+
 document.addEventListener(
     "mouseup",
-    e => {
+    e=>{
 
         endSwipe(
             e.clientX
@@ -588,76 +669,40 @@ document.addEventListener(
     }
 );
 
+
 document.addEventListener(
     "mouseleave",
-    () => {
+    ()=>{
 
-        if(!swipePointerActive)
-            return;
+        if(!swipeActive)return;
 
-        swipePointerActive = false;
-        swipeMoved = false;
+        swipeActive=false;
+        swipeMoved=false;
 
         body.classList.remove(
             "is-dragging"
         );
 
-        body.style.userSelect = "";
+        body.style.userSelect="";
 
-        setSwipeProgress(0);
+        swipeProgress.style.width="0";
     }
 );
 
 
-/* PRELOAD */
+/* =========================
+   INITIALIZE
+========================= */
 
-function preloadThemes(){
+preloadImage(currentTheme);
 
-    themeNames.forEach(name => {
+preloadNearbyImages();
 
-        const theme =
-            themes[name];
+updateThemeUI(currentTheme);
 
-        const img =
-            new Image();
-
-        img.src =
-            theme.png;
-
-        const v =
-            document.createElement(
-                "video"
-            );
-
-        v.preload = "auto";
-        v.muted = true;
-        v.playsInline = true;
-        v.src = theme.mp4;
-    });
-}
-
-
-/* DISABLE IMAGE DRAG */
-
-document
-    .querySelectorAll("img")
-    .forEach(img => {
-
-        img.draggable = false;
-    });
-
-
-/* INITIALIZE */
-
-preloadThemes();
+createParticles();
 
 applyTheme(
     currentTheme,
     false
 );
-
-updateThemeUI(
-    currentTheme
-);
-
-createParticles();
