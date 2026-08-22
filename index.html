@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZamnnX3d</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="intro-overlay">
+    <div class="intro-title">
+        <small>WELCOME TO MY WORLD</small>
+        <strong>ZamnnX3d.</strong>
+    </div>
+</div>
+
+<div class="theme-overlay" id="themeOverlay"></div>
+
+<div class="world-progress">
+    <span class="world-count" id="worldCount">WORLD 01 / 04</span>
+    <div class="world-line">
+        <span id="worldLine"></span>
+    </div>
+</div>
+
+<div class="swipe-progress">
+    <span id="swipeProgress"></span>
+</div>
+
+<div class="theme-swipe-layer"></div>
+<div class="theme-particles" id="themeParticles"></div>
+<div class="ambient-glow"></div>
+
+<div class="theme-nav" id="themeNav">
+    <button id="themePrev" aria-label="Previous theme">‹</button>
+
+    <div>
+        <div class="theme-current-wrap">
+            <img class="theme-preview" id="themePreview" alt="">
+            <div class="theme-current" id="themeCurrent">PURPLE</div>
+        </div>
+
+        <div class="theme-dots" id="themeDots"></div>
+    </div>
+
+    <button id="themeNext" aria-label="Next theme">›</button>
+</div>
+
+<div class="swipe-hint" id="swipeHint">
+    ← Swipe to explore →
+</div>
+
+<main class="container">
+
+<header>
+    <h1>ZamnnX3d.</h1>
+</header>
+
+<section class="image-card">
+    <video
+        id="mainVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        tabindex="-1"
+        aria-hidden="true">
+        Browser Anda tidak mendukung tag video.
+    </video>
+</section>
+
+<div class="content-section">
+
+    <span class="welcome-badge">Welcome</span>
+
+    <h2 class="main-title">
+        Hello Everyone I'm<br>
+        <span class="gradient-text">ZamnnX3d</span>
+    </h2>
+
+    <p class="subtitle">
+        <span style="text-decoration:line-through;">
+            Watashi no Maou-sama
+        </span>
+        <span class="cursor">|</span>
+    </p>
+
+    <p class="description">
+        I am a web developer focused on building
+        modern, responsive, and efficient websites.
+    </p>
+
+    <div class="tech-stack">
+        <span class="tech-badge">HTML</span>
+        <span class="tech-badge">C++</span>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">Python</span>
+    </div>
+
+    <div class="cta-buttons">
+
+        <a
+            href="https://zamstecu.github.io/myproject/"
+            class="btn btn-primary">
+            View Projects
+        </a>
+
+        <a
+            href="https://wa.me/6285184627076"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary">
+            Contact Me
+        </a>
+
+    </div>
+
+</div>
+
+<section class="stats-section">
+
+    <div class="stat-box">
+        <h3>15</h3>
+        <p>years old</p>
+    </div>
+
+    <div class="stat-box">
+        <h3>X RPL</h3>
+        <p>Class in School</p>
+    </div>
+
+    <div class="stat-box">
+        <h3>100%</h3>
+        <p>Enthusiast</p>
+    </div>
+
+    <div class="stat-box">
+        <h3>8/24</h3>
+        <p>Learning</p>
+    </div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
