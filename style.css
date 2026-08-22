@@ -141,6 +141,10 @@ header h1{
     animation:blink 1s infinite
 }
 
+@keyframes blink{
+    50%{opacity:0}
+}
+
 .description{
     max-width:650px;
     margin:20px auto;
@@ -725,12 +729,23 @@ img{
     }
 
     .image-card{
-        border-radius:20px
+        width:100%;
+        border-radius:20px;
     }
 
+    /*
+        MOBILE VIDEO = 16:9
+        Tinggi otomatis mengikuti lebar.
+        Jadi video tidak lagi dibuat 9:16.
+    */
     .image-card video{
-        height:min(62vh,560px);
-        min-height:340px
+        width:100%;
+        height:auto;
+        aspect-ratio:16 / 9;
+        min-height:0;
+        max-height:none;
+        object-fit:cover;
+        display:block;
     }
 
     .content-section{
@@ -899,6 +914,7 @@ img{
 }
 
 @media(max-width:600px){
+
     .theme-nav{
         top:auto;
         right:auto
@@ -912,9 +928,14 @@ img{
         padding-right:11px
     }
 
+    /*
+        Tetap 16:9 untuk HP kecil juga.
+    */
     .image-card video{
-        height:54vh;
-        min-height:295px
+        width:100%;
+        height:auto;
+        aspect-ratio:16 / 9;
+        min-height:0;
     }
 
     .main-title{
